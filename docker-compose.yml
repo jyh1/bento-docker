@@ -1,0 +1,34 @@
+version: '3'
+services:
+  nginx: 
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - ./nginx.conf:/nginx.conf.tmp
+    ports:
+      - ${PORT}:${PORT}
+      - 443:443
+    networks:
+      - workflow-network
+    environment:
+      - CODALAB=${CODALAB}
+      - PORT=${PORT}
+    command: /bin/bash -c "envsubst '\\\$$PORT \\\$$CODALAB' < /nginx.conf.tmp > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
+
+  backend:
+    image: codalab-workflow/server:latest
+    container_name: codalab-worflow-server
+    expose:
+      - "80"
+    networks:
+      - workflow-network
+    environment:
+      - PORT=80
+      - ENV=${ENV}
+      - CODALAB=${CODALAB}
+      - MYSQL_USER=workflow
+      - MYSQL_DATABASE=codalab_workflow
+      - MIGRATION=${MIGRATION}
+
+networks:
+  workflow-network:
