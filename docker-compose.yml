@@ -22,13 +22,33 @@ services:
       - "80"
     networks:
       - workflow-network
+    depends_on:
+      - "db"
     environment:
       - PORT=80
       - ENV=${ENV}
       - CODALAB=${CODALAB}
       - MYSQL_USER=workflow
       - MYSQL_DATABASE=codalab_workflow
+      - MYSQL_PWD=workflowpw
       - MIGRATION=${MIGRATION}
+      - MYSQL_HOST=db
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - "${MYSQLDATA}:/var/lib/mysql"
+    networks:
+      - workflow-network
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpw
+      - MYSQL_DATABASE=codalab_workflow
+      - MYSQL_USER=workflow
+      - MYSQL_PASSWORD=workflowpw
 
 networks:
   workflow-network:
