@@ -16,8 +16,12 @@ services:
     command: /bin/bash -c "envsubst '\\\$$PORT \\\$$CODALAB' < /nginx.conf.tmp > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
 
   backend:
-    image: codalab-workflow/server:latest
+    image: codalab-workflow/dev
     container_name: codalab-worflow-server
+    volumes:
+      - ${SERVERBIN}:/server-bin
+      - ${FRONTEND}:/static
+    command: /server-bin
     expose:
       - "80"
     networks:
