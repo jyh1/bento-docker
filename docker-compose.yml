@@ -7,7 +7,6 @@ services:
       - ./nginx.conf:/nginx.conf.tmp
     ports:
       - ${PORT}:${PORT}
-      - 443:443
     networks:
       - workflow-network
     depends_on:
@@ -18,7 +17,7 @@ services:
     command: /bin/bash -c "envsubst '\\\$$PORT \\\$$CODALAB' < /nginx.conf.tmp > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
 
   backend:
-    image: codalab-workflow/dev
+    image: jyh1/workflow:server
     container_name: codalab-worflow-server
     volumes:
       - ${SERVERBIN}:/server-bin
