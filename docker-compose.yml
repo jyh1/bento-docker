@@ -5,6 +5,7 @@ services:
     container_name: production_nginx
     volumes:
       - ./nginx.conf:/nginx.conf.tmp
+      - $DEMOAPPLOC:/demo-app
     ports:
       - ${PORT}:${PORT}
     networks:
