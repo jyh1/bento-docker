@@ -34,6 +34,7 @@ services:
       - MYSQL_PWD=workflowpw
       - MIGRATION=${MIGRATION}
       - MYSQL_HOST=db
+      - DEMO=${DEMO}
 
   db:
     image: mysql:8
