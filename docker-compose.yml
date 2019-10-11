@@ -24,8 +24,6 @@ services:
       - ${SERVERBIN}:/server-bin
       - ${FRONTEND}:/static
     command: /server-bin
-    expose:
-      - "80"
     networks:
       - workflow-network
     depends_on:
@@ -50,8 +48,6 @@ services:
       - "${MYSQLDATA}:/var/lib/mysql"
     networks:
       - workflow-network
-    expose:
-      - "3306"
     environment:
       - MYSQL_ROOT_PASSWORD=rootpw
       - MYSQL_DATABASE=codalab_workflow
