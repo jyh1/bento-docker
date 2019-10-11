@@ -19,8 +19,6 @@ services:
   backend:
     image: jyh1/workflow:server
     container_name: codalab-worflow-server
-    expose:
-      - "80"
     networks:
       - workflow-network
     depends_on:
@@ -45,8 +43,6 @@ services:
       - "${MYSQLDATA}:/var/lib/mysql"
     networks:
       - workflow-network
-    expose:
-      - "3306"
     environment:
       - MYSQL_ROOT_PASSWORD=rootpw
       - MYSQL_DATABASE=codalab_workflow
