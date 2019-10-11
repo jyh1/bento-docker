@@ -40,6 +40,7 @@ services:
       - MIGRATION=${MIGRATION}
       - MYSQL_HOST=db
       - DEMO=${DEMO}
+      - PUBLICUSER=${PUBLICUSER}
 
   db:
     image: mysql:8
