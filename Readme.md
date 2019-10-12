@@ -10,9 +10,12 @@ Use the [.env](./.env) file for configuration. Some important fields:
 | MYSQLDATA | System location to store the mysql data. |
 
 
-Set up everything with:
+Spin up everything with:
 ```
 docker-compose up -d
 ```
 
 If success, you should be able to access the app at `http://localhost:$PORT/workflow/`.
+
+#### Known Issues
+Sometimes the `backend` service might fail to start because of the database is not ready. In that case, re-run `docker-compose up -d` will normally solve the issue.
